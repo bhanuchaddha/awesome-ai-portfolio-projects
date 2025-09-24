@@ -6,23 +6,31 @@ providing both regular API endpoints and LLM-friendly MCP endpoints.
 """
 
 from fastmcp import FastMCP
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 import uvicorn
-from app.main import api_app as todo_api
+from app.main import api_app
 
-# 1. Generate MCP server from your API
-mcp = FastMCP.from_fastapi(app=todo_api, name="Todo MCP")
+# 1. Create an app that includes the API routes at /api for MCP generation
+mcp_source_app = FastAPI(title="Todo API for MCP")
 
-# 2. Create the MCP's ASGI app
+# Create a router with /api prefix and include all the todo routes
+api_router = APIRouter(prefix="/api")
+api_router.include_router(api_app.router)
+mcp_source_app.include_router(api_router)
+
+# 2. Generate MCP server from the properly prefixed API
+mcp = FastMCP.from_fastapi(app=mcp_source_app, name="Todo MCP")
+
+# 3. Create the MCP's ASGI app
 mcp_app = mcp.http_app(path='/mcp')
 
-# 3. Create a new FastAPI app and mount everything
+# 4. Create the main combined app
 app = FastAPI(title="Todo API with MCP", lifespan=mcp_app.lifespan)
 
-# Mount the original API routes
-app.mount("/api", todo_api)
+# Mount the original API at /api
+app.mount("/api", api_app)
 
-# Mount the MCP server
+# Mount the MCP server at /llm
 app.mount("/llm", mcp_app)
 
 # Root endpoint for the combined app

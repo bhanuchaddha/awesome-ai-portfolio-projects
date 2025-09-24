@@ -9,23 +9,16 @@ except ImportError:
     # When running directly from app/ directory
     import schemas
 
-# Create the main API app
-api_app = FastAPI(title="Todo API")
-
 # In-memory storage
 todos_db: List[schemas.Todo] = []
 next_id = 1
 
-
-@api_app.get("/")
-async def root():
-    return {"message": "Todo API running"}
-
+# Create the clean API app with just the API routes
+api_app = FastAPI(title="Todo API")
 
 @api_app.get("/todos", response_model=List[schemas.Todo])
 async def list_todos():
     return todos_db
-
 
 @api_app.post("/todos", response_model=schemas.Todo)
 async def create_todo(todo: schemas.TodoCreate):
@@ -40,14 +33,12 @@ async def create_todo(todo: schemas.TodoCreate):
     next_id += 1
     return new_todo
 
-
 @api_app.get("/todos/{todo_id}", response_model=schemas.Todo)
 async def read_todo(todo_id: int):
     for todo in todos_db:
         if todo.id == todo_id:
             return todo
     raise HTTPException(status_code=404, detail="Todo not found")
-
 
 @api_app.put("/todos/{todo_id}", response_model=schemas.Todo)
 async def update_todo(todo_id: int, todo_update: schemas.TodoUpdate):
@@ -59,7 +50,6 @@ async def update_todo(todo_id: int, todo_update: schemas.TodoUpdate):
             return updated_todo
     raise HTTPException(status_code=404, detail="Todo not found")
 
-
 @api_app.delete("/todos/{todo_id}")
 async def delete_todo(todo_id: int):
     for i, todo in enumerate(todos_db):
@@ -68,8 +58,7 @@ async def delete_todo(todo_id: int):
             return {"message": "Todo deleted"}
     raise HTTPException(status_code=404, detail="Todo not found")
 
-
-# Create the main app and mount the API
+# Create the main app for standalone use
 app = FastAPI(title="Todo API Server")
 
 @app.get("/")
