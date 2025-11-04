@@ -1,3 +1,4 @@
+```
 ➜ uv run 4-bookey_the_book_recommender_agent.py
 ┏━ Message ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃                                                                                           ┃
@@ -178,3 +179,5 @@ uv run 4-bookey_the_book_recommender_agent.py
 ┃ I hope you find these recommendations helpful and enjoyable!                                                      ┃
 ┃                                                                                                                   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+```
