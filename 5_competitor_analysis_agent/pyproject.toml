@@ -1,0 +1,16 @@
+[project]
+name = "default-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=2.2.6",
+    "mcp>=1.18.0",
+    "openai>=2.5.0",
+    "openrouter>=0.1.0",
+    "dotenv>=0.1.0",
+    "python-dotenv>=0.1.0",
+    "exa-py>=2.0.0",
+    "firecrawl-py>=4.5.0",
+]

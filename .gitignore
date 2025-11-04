@@ -72,3 +72,4 @@ instance/
 # MCP specific
 mcp_config.json
 */local/
+*/.env
