@@ -64,40 +64,51 @@ book_recommendation_agent = Agent(
     add_datetime_to_context=True,
     )
 
-# Example usage with different types of book queries
-# book_recommendation_agent.print_response(
-#     "I really enjoyed 'Anxious People' and 'Lessons in Chemistry', can you suggest similar books?",
-#     stream=True,
-# )
 
-book_recommendation_agent.print_response(
-    "I am reading 'Psychology of Money' by Morgan Housel, can you suggest similar books?",
-    stream=True,
-)
+def get_agent_response(message: str) -> str:
+    """Run agent and return response as string (for UI integration)."""
+    # The `run` method returns a `RunOutput` object, and the final response
+    # is in the `output` attribute.
+    run_output = book_recommendation_agent.run(message)
+    response = run_output.content
+    return response
 
-# More example prompts to explore:
-"""
-Genre-specific queries:
-1. "Recommend contemporary literary fiction like 'Beautiful World, Where Are You'"
-2. "What are the best fantasy series completed in the last 5 years?"
-3. "Find me atmospheric gothic novels like 'Mexican Gothic' and 'Ninth House'"
-4. "What are the most acclaimed debut novels from this year?"
 
-Contemporary Issues:
-1. "Suggest books about climate change that aren't too depressing"
-2. "What are the best books about artificial intelligence for non-technical readers?"
-3. "Recommend memoirs about immigrant experiences"
-4. "Find me books about mental health with hopeful endings"
+if __name__ == "__main__":
+    # Example usage with different types of book queries
+    # book_recommendation_agent.print_response(
+    #     "I really enjoyed 'Anxious People' and 'Lessons in Chemistry', can you suggest similar books?",
+    #     stream=True,
+    # )
 
-Book Club Selections:
-1. "What are good book club picks that spark discussion?"
-2. "Suggest literary fiction under 350 pages"
-3. "Find thought-provoking novels that tackle current social issues"
-4. "Recommend books with multiple perspectives/narratives"
+    book_recommendation_agent.print_response(
+        "I am reading 'Psychology of Money' by Morgan Housel, can you suggest similar books?",
+        stream=True,
+    )
 
-Upcoming Releases:
-1. "What are the most anticipated literary releases next month?"
-2. "Show me upcoming releases from my favorite authors"
-3. "What debut novels are getting buzz this season?"
-4. "List upcoming books being adapted for screen"
-"""
+    # More example prompts to explore:
+    """
+    Genre-specific queries:
+    1. "Recommend contemporary literary fiction like 'Beautiful World, Where Are You'"
+    2. "What are the best fantasy series completed in the last 5 years?"
+    3. "Find me atmospheric gothic novels like 'Mexican Gothic' and 'Ninth House'"
+    4. "What are the most acclaimed debut novels from this year?"
+
+    Contemporary Issues:
+    1. "Suggest books about climate change that aren't too depressing"
+    2. "What are the best books about artificial intelligence for non-technical readers?"
+    3. "Recommend memoirs about immigrant experiences"
+    4. "Find me books about mental health with hopeful endings"
+
+    Book Club Selections:
+    1. "What are good book club picks that spark discussion?"
+    2. "Suggest literary fiction under 350 pages"
+    3. "Find thought-provoking novels that tackle current social issues"
+    4. "Recommend books with multiple perspectives/narratives"
+
+    Upcoming Releases:
+    1. "What are the most anticipated literary releases next month?"
+    2. "Show me upcoming releases from my favorite authors"
+    3. "What debut novels are getting buzz this season?"
+    4. "List upcoming books being adapted for screen"
+    """
