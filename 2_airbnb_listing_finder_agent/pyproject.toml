@@ -11,5 +11,5 @@ dependencies = [
     "openrouter>=0.1.0",
     "dotenv>=0.1.0",
     "python-dotenv>=0.1.0",
-
+    "streamlit>=1.28.0",
 ]
