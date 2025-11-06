@@ -9,10 +9,23 @@ st.set_page_config(page_title="Customer Support Agent", page_icon="🤖")
 st.title("🤖 Customer Support Agent")
 
 st.sidebar.title("Configuration")
-api_key = st.sidebar.text_input("Enter your OpenAI API Key", type="password")
+# API Key handling
+if "OPENAI_API_KEY" in st.session_state:
+    st.sidebar.success("OpenAI API Key is set for this session.")
+    if st.sidebar.button("Reset API Key"):
+        del st.session_state["OPENAI_API_KEY"]
+        if "OPENAI_API_KEY" in os.environ:
+            del os.environ["OPENAI_API_KEY"]
+        st.rerun()
+else:
+    api_key_input = st.sidebar.text_input("Enter your OpenAI API Key", type="password", key="api_key_input")
+    if api_key_input:
+        st.session_state["OPENAI_API_KEY"] = api_key_input
+        st.rerun()
 
-if api_key:
-    os.environ["OPENAI_API_KEY"] = api_key
+# Main app logic, runs only if API key is in session state
+if "OPENAI_API_KEY" in st.session_state:
+    os.environ["OPENAI_API_KEY"] = st.session_state["OPENAI_API_KEY"]
 
     class State(TypedDict):
         query: str
@@ -139,3 +152,5 @@ if api_key:
                 response = results.get("response", "Sorry, I encountered an error.")
                 st.markdown(response)
                 st.session_state.messages.append({"role": "assistant", "content": response})
+else:
+    st.info("Please enter your OpenAI API Key in the sidebar to begin.")
