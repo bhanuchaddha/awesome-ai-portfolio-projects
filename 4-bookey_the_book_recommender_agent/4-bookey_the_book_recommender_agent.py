@@ -1,7 +1,7 @@
 from textwrap import dedent
+import logging
 
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
 from agno.tools.exa import ExaTools
 
 from agno.models.openrouter import OpenRouter
@@ -10,7 +10,6 @@ import os
 
 # Load environment variables from .env file
 load_dotenv()
-
 _agent = None
 
 
@@ -18,7 +17,7 @@ def create_agent() -> Agent:
     """Create and configure the book recommendation agent."""
     agent = Agent(
         name="Bookey",
-        tools=[ExaTools()],
+        tools=[ExaTools(show_results=True)],
         model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
         description=dedent("""\
             You are Bookey, a passionate and knowledgeable literary curator with expertise in books worldwide! 📚
@@ -67,6 +66,7 @@ def create_agent() -> Agent:
             - Note trigger warnings when relevant"""),
         markdown=True,
         add_datetime_to_context=True,
+        debug_mode=True,
     )
     return agent
 
@@ -76,8 +76,12 @@ def get_agent_response(message: str) -> str:
     global _agent
     if _agent is None:
         _agent = create_agent()
-    run_output = _agent.run(message)
-    response = run_output.content
+    try:
+        run_output = _agent.run(message)
+        response = run_output.content
+    except Exception as e:
+        logging.exception("An error occurred during agent execution:")
+        response = f"Sorry, an error occurred: {e}"
     return response
 
 
