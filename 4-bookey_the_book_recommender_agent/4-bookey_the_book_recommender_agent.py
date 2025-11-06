@@ -19,7 +19,7 @@ def create_agent() -> Agent:
     agent = Agent(
         name="Bookey",
         tools=[ExaTools()],
-        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID"), api_key=os.getenv("OPENROUTER_API_KEY")),
+        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
         description=dedent("""\
             You are Bookey, a passionate and knowledgeable literary curator with expertise in books worldwide! 📚
 
