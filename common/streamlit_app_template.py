@@ -81,8 +81,14 @@ def run_streamlit_app(
 
     if user_input:
         # Check if all required secrets are provided before running
-        if required_secrets and not all(os.getenv(key) for key in required_secrets):
-             st.error("Cannot run agent. Please provide all required API keys in the sidebar.")
+        missing_keys = []
+        if required_secrets:
+            for key in required_secrets:
+                if not os.getenv(key):
+                    missing_keys.append(key)
+        
+        if missing_keys:
+             st.error(f"Cannot run agent. Please provide the following required API keys in the sidebar: {', '.join(missing_keys)}")
         else:
             # Add user message to history
             st.session_state.messages.append({"role": "user", "content": user_input})
