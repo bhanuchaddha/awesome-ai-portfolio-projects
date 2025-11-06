@@ -18,7 +18,7 @@ load_dotenv()
 def _create_agent(mcp_tools):
     """Helper function to create agent with shared configuration."""
     return Agent(
-        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID"), api_key=os.getenv("OPENROUTER_API_KEY")),
+        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
         tools=[ReasoningTools(add_instructions=True), mcp_tools],
         instructions=dedent("""
         ## General Instructions
