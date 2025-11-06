@@ -15,7 +15,7 @@ load_dotenv()
 def _create_agent(mcp_tools: MCPTools) -> Agent:
     """Create the competitor analysis agent."""
     return Agent(
-        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
+        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "minimax/minimax-m2:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
         tools=[
             ReasoningTools(
                 add_instructions=True,
