@@ -13,7 +13,13 @@ load_dotenv()
 
 async def run_agent(message: str) -> None:
     # Use .connect()/.close() style, not async context manager
-    mcp_tools = MCPTools(command="npx -y firecrawl-mcp")
+    firecrawl_api_key = os.getenv("FIRECRAWL_API_KEY")
+    if not firecrawl_api_key:
+        raise ValueError("FIRECRAWL_API_KEY environment variable not set")
+    mcp_tools = MCPTools(
+        url=f"https://mcp.firecrawl.dev/{firecrawl_api_key}/v2/mcp",
+        transport="streamable-http",
+    )
     await mcp_tools.connect()
 
     try:
@@ -26,36 +32,38 @@ async def run_agent(message: str) -> None:
                 mcp_tools,
             ],
             instructions=[
-                "1. Initial Research & Discovery:",
-                "   - Use search tool to find information about the target company",
-                "   - Search for '[company name] competitors', 'companies like [company name]'",
-                "   - Search for industry reports and market analysis",
-                "   - Use the think tool to plan your research approach",
-                "2. Competitor Identification:",
-                "   - Search for each identified competitor using Firecrawl",
-                "   - Find their official websites and key information sources",
-                "   - Map out the competitive landscape",
-                "3. Website Analysis:",
-                "   - Scrape competitor websites using Firecrawl",
-                "   - Map their site structure to understand their offerings",
-                "   - Extract product information, pricing, and value propositions",
-                "   - Look for case studies and customer testimonials",
-                "4. Deep Competitive Analysis:",
-                "   - Use the analyze tool after gathering information on each competitor",
-                "   - Compare features, pricing, and market positioning",
-                "   - Identify patterns and competitive dynamics",
-                "   - Think through the implications of your findings",
-                "5. Strategic Synthesis:",
-                "   - Conduct SWOT analysis for each major competitor",
-                "   - Use reasoning to identify competitive advantages",
-                "   - Analyze market trends and opportunities",
-                "   - Develop strategic recommendations",
-                "- Always use the think tool before starting major research phases",
-                "- Use the analyze tool to process findings and draw insights",
-                "- Search for multiple perspectives on each competitor",
-                "- Verify information by checking multiple sources",
-                "- Be thorough but focused in your analysis",
-                "- Provide evidence-based recommendations",
+                "### Firecrawl Usage Guidelines:",
+                "- **Search:** Use `firecrawl_search` for initial discovery. You MUST provide a `query` argument (e.g., `'[company name] competitors'`).",
+                "- **Scrape:** Use `firecrawl_scrape` to get content from specific competitor websites.",
+                "- **Map:** Use `firecrawl_map` to understand the structure of a competitor's website.",
+                "",
+                "### Research Workflow:",
+                "1. **Initial Research & Discovery:**",
+                "   - Use the search tool to find information about the target company, its competitors, and industry reports.",
+                "   - Use the think tool to plan your research approach.",
+                "2. **Competitor Identification:**",
+                "   - For each potential competitor, use the search tool to find their official website.",
+                "   - Map out the competitive landscape.",
+                "3. **Website Analysis:**",
+                "   - Scrape competitor websites to analyze their offerings.",
+                "   - Map their site structure to understand their products, pricing, and value propositions.",
+                "   - Look for case studies and customer testimonials.",
+                "4. **Deep Competitive Analysis:**",
+                "   - Use the analyze tool after gathering information on each competitor.",
+                "   - Compare features, pricing, and market positioning.",
+                "   - Identify patterns and competitive dynamics.",
+                "   - Think through the implications of your findings.",
+                "5. **Strategic Synthesis:**",
+                "   - Conduct SWOT analysis for each major competitor.",
+                "   - Use reasoning to identify competitive advantages.",
+                "   - Analyze market trends and opportunities.",
+                "   - Develop strategic recommendations.",
+                "",
+                "### General Guidelines:",
+                "- Always use the `think` tool before starting major research phases.",
+                "- Use the `analyze` tool to process findings and draw insights.",
+                "- Search for multiple perspectives on each competitor and verify information by checking multiple sources.",
+                "- Be thorough but focused in your analysis, providing evidence-based recommendations.",
             ],
             expected_output=dedent("""\
     # Competitive Analysis Report: {Target Company}
@@ -180,6 +188,6 @@ async def run_agent(message: str) -> None:
         await mcp_tools.close()
 
 if __name__ == "__main__":
-    task = """Analyze the competitive landscape for A.P. Moller - Maersk in the shipping industry.
+    task = """Analyze the competitive landscape for Novo Nordisk in the pharmaceutical industry.
     """
     asyncio.run(run_agent(task))
