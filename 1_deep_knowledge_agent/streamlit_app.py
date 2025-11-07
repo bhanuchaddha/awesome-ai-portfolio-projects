@@ -9,6 +9,7 @@ from pathlib import Path
 from importlib.util import spec_from_file_location, module_from_spec
 import streamlit as st
 from uuid import uuid4
+from typing import Optional
 
 # Get the root directory and add it to the Python path to enable imports
 root_dir = Path(__file__).resolve().parent.parent
@@ -36,9 +37,18 @@ REQUIRED_SECRETS = ["GOOGLE_API_KEY"]
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid4())
 
-def get_response_with_session(message: str) -> str:
+def get_response_with_session(message: str, file_path: Optional[str] = None) -> str:
     """Wrapper to pass session_id to the agent."""
-    return get_agent_response_func(message, st.session_state.session_id)
+    return get_agent_response_func(
+        message, st.session_state.session_id, file_path=file_path
+    )
+
 
 # Run the Streamlit app
-run_streamlit_app(get_response_with_session, AGENT_NAME, AGENT_ICON, REQUIRED_SECRETS)
+run_streamlit_app(
+    get_response_with_session,
+    AGENT_NAME,
+    AGENT_ICON,
+    REQUIRED_SECRETS,
+    enable_file_uploader=True,
+)

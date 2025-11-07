@@ -11,8 +11,8 @@ dependencies = [
     "streamlit",
     "python-dotenv",
     "sqlalchemy>=2.0.44",
-    "google-genai>=1.47.0",
-    "pypdf>=6.1.3",
+    "google-genai>=0.5.4",
+    "pypdf>=4.2.0",
 ]
 
 [tool.uv]

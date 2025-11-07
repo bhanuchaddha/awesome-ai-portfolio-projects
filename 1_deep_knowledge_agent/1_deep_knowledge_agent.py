@@ -19,7 +19,7 @@ import os
 load_dotenv()
 
 
-def initialize_knowledge_base():
+def initialize_knowledge_base(file_path: Optional[str] = None):
     """Initialize the knowledge base with Agno docs."""
     agent_knowledge = Knowledge(
         vector_db=LanceDb(
@@ -30,14 +30,14 @@ def initialize_knowledge_base():
         ),
     )
     # This might take a moment the first time it runs
-    agent_knowledge.add_content(
-        
-        path="./interconnection_of_water.pdf",
-        reader=PDFReader(
-            name="Document Chunking Reader",
-            chunking_strategy=AgenticChunking(),
-        ),
-    )
+    if file_path:
+        agent_knowledge.add_content(
+            path=file_path,
+            reader=PDFReader(
+                name="Document Chunking Reader",
+                chunking_strategy=AgenticChunking(),
+            ),
+        )
     return agent_knowledge
 
 
@@ -46,9 +46,11 @@ def get_agent_db():
     return SqliteDb(session_table="deep_knowledge_sessions", db_file="tmp/agents.db")
 
 
-def create_agent(session_id: Optional[str] = None) -> Agent:
+def create_agent(
+    session_id: Optional[str] = None, file_path: Optional[str] = None
+) -> Agent:
     """Create and return a configured DeepKnowledge agent."""
-    agent_knowledge = initialize_knowledge_base()
+    agent_knowledge = initialize_knowledge_base(file_path=file_path)
     agent_db = get_agent_db()
     return Agent(
         name="DeepKnowledge",
@@ -108,9 +110,13 @@ def create_agent(session_id: Optional[str] = None) -> Agent:
         debug_mode=True,
     )
 
-def get_agent_response(message: str, session_id: str) -> str:
+def get_agent_response(
+    message: str, session_id: str, file_path: Optional[str] = None
+) -> str:
     """Run agent and return response as string (for UI integration)."""
-    agent = create_agent(session_id=session_id)
+    if not file_path:
+        return "Please upload a file to begin."
+    agent = create_agent(session_id=session_id, file_path=file_path)
     run_output = agent.run(message)
     response = run_output.content
     return response if isinstance(response, str) else str(response)
