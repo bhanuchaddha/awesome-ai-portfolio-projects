@@ -1,0 +1,13 @@
+[project]
+name = "blog-post-generator-agent"
+version = "0.1.0"
+description = "A simplified agent that generates blog posts with optional social media snippets using Exa research."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=2.2.6",
+    "openrouter>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "streamlit>=1.28.0",
+    "exa-py>=2.0.0",
+]
