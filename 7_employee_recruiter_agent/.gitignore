@@ -1,0 +1,16 @@
+# Temporary files and uploads
+tmp/
+*.pyc
+__pycache__/
+.venv/
+*.db
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
