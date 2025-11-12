@@ -32,6 +32,15 @@ from pydantic import BaseModel, Field
 load_dotenv()
 
 
+# --- Helper function to safely initialize tools ---
+def get_tools():
+    """Return Exa tools if API key is available, otherwise empty list."""
+    try:
+        return [ExaTools(show_results=True)] if os.getenv("EXA_API_KEY") else []
+    except:
+        return []
+
+
 # --- Pydantic Models ---
 
 class IdeaClarification(BaseModel):
@@ -112,7 +121,7 @@ market_research_agent = Agent(
         id=os.getenv("OPENROUTER_MODEL_ID", "minimax/minimax-m2:free"),
         api_key=os.getenv("OPENROUTER_API_KEY")
     ),
-    tools=[ExaTools(show_results=True)],
+    tools=get_tools(),
     description=dedent("""\
     You are a market research expert who analyzes market size, segments, and opportunities.
     You use web research to find data and provide realistic market estimates.
@@ -180,7 +189,7 @@ competitor_analysis_agent = Agent(
         id=os.getenv("OPENROUTER_MODEL_ID", "minimax/minimax-m2:free"),
         api_key=os.getenv("OPENROUTER_API_KEY")
     ),
-    tools=[ExaTools(show_results=True)],
+    tools=get_tools(),
     description=dedent("""\
     You are a competitive intelligence analyst who identifies competitors
     and analyzes market positioning.
@@ -320,6 +329,16 @@ async def startup_validation_execution(
             "validation_report": None
         }
     
+    # Validate required API keys
+    if not os.getenv("EXA_API_KEY"):
+        return {
+            "error": "EXA_API_KEY is required for startup validation. This agent uses web search to gather market research and competitive intelligence. Please provide your EXA_API_KEY in the sidebar configuration.",
+            "idea_clarification": None,
+            "market_research": None,
+            "competitor_analysis": None,
+            "validation_report": None
+        }
+    
     print(f"[START] Starting startup idea validation for: {idea[:100]}...")
     print(f"[INFO] Validation request: {message}")
     print(f"[INFO] Using model: {model_id}")
@@ -346,7 +365,7 @@ async def startup_validation_execution(
             id=model_id,
             api_key=os.getenv("OPENROUTER_API_KEY")
         ),
-        tools=[ExaTools(show_results=True)],
+        tools=get_tools(),
         description=market_research_agent.description,
         instructions=market_research_agent.instructions,
         markdown=True,
@@ -359,7 +378,7 @@ async def startup_validation_execution(
             id=model_id,
             api_key=os.getenv("OPENROUTER_API_KEY")
         ),
-        tools=[ExaTools(show_results=True)],
+        tools=get_tools(),
         description=competitor_analysis_agent.description,
         instructions=competitor_analysis_agent.instructions,
         markdown=True,
