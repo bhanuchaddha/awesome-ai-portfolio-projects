@@ -1,0 +1,4 @@
+"""
+Startup Idea Validator Package
+"""
+

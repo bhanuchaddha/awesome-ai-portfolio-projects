@@ -1,0 +1,19 @@
+# Temporary files and data
+tmp/
+*.pyc
+__pycache__/
+.venv/
+*.db
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+

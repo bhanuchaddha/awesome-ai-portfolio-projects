@@ -1,0 +1,17 @@
+[project]
+name = "startup-idea-validator"
+version = "0.1.0"
+description = "AI-powered startup idea validation system with market research and competitive analysis."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno>=2.2.6",
+    "openrouter>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "streamlit>=1.28.0",
+    "exa-py>=2.0.0",
+    "sqlalchemy>=2.0.44",
+    "fastapi>=0.121.1",
+    "requests>=2.31.0",
+]
+
