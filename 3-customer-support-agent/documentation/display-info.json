@@ -1,0 +1,35 @@
+{
+  "id": "agent-003",
+  "name": "Customer Support Agent",
+  "emoji": "💬",
+  "description": "Intelligent customer support agent that categorizes queries, analyzes sentiment, and provides appropriate responses or escalates issues.",
+  "longDescription": "Uses a graph-based workflow built with LangGraph to process customer queries. Categorizes queries (Technical, Billing, General), analyzes sentiment, and routes to appropriate handlers or escalates negative sentiment cases.",
+  "folder": "3-customer-support-agent",
+  "gifPath": "3-customer-support-agent/documentation/assets/demo.gif",
+  "deployedUrl": "",
+  "technologies": [
+    "Python 3.9+",
+    "LangGraph",
+    "OpenAI",
+    "Streamlit"
+  ],
+  "features": [
+    "Automatic query categorization",
+    "Sentiment analysis",
+    "Smart routing and escalation",
+    "Graph-based workflow"
+  ],
+  "category": "Customer Support",
+  "businessImpact": {
+    "timeSaved": "Automates tier-1 support",
+    "keyMetric": "Intelligent escalation reduces response time"
+  },
+  "whoShouldUse": [
+    "Customer Support Teams",
+    "Service Desks",
+    "E-commerce Businesses"
+  ],
+  "order": 3,
+  "active": true
+}
+

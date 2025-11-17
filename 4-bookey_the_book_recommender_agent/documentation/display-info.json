@@ -1,0 +1,37 @@
+{
+  "id": "agent-004",
+  "name": "Bookey - The Book Recommender Agent",
+  "emoji": "📖",
+  "description": "AI-powered literary curator that provides personalized book recommendations based on reading preferences and favorite titles.",
+  "longDescription": "Analyzes reading preferences and favorite books, searches across multiple book databases and review sites, and provides detailed recommendations with ratings, summaries, and content notes.",
+  "folder": "4-bookey_the_book_recommender_agent",
+  "gifPath": "4-bookey_the_book_recommender_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://bookey-the-book-recommender-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.12+",
+    "Agno Framework",
+    "OpenRouter",
+    "Exa Tools",
+    "Streamlit"
+  ],
+  "features": [
+    "Personalized recommendations",
+    "Multi-database search",
+    "Ratings and summaries",
+    "Content notes and themes"
+  ],
+  "category": "Recommendations",
+  "businessImpact": {
+    "timeSaved": "80% reduction in book search time",
+    "keyMetric": "3x increase in book discovery rates"
+  },
+  "whoShouldUse": [
+    "Book Retailers",
+    "Library Systems",
+    "Subscription Services",
+    "Publishing Companies"
+  ],
+  "order": 4,
+  "active": true
+}
+

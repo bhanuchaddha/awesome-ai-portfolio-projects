@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI Agent Configuration",
+  "description": "Configuration schema for AI agent metadata used in README generation",
+  "type": "object",
+  "required": ["id", "name", "description", "folder", "technologies", "features"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the agent (e.g., 'agent-001')"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the agent"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Optional emoji representing the agent",
+      "maxLength": 2
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of what the agent does (1-2 sentences)"
+    },
+    "longDescription": {
+      "type": "string",
+      "description": "Detailed description of the agent's capabilities"
+    },
+    "folder": {
+      "type": "string",
+      "description": "Relative path to the agent's directory"
+    },
+    "gifPath": {
+      "type": "string",
+      "description": "Relative path to the agent's demo GIF file (from repo root)"
+    },
+    "deployedUrl": {
+      "type": "string",
+      "description": "URL to the deployed Streamlit application (if available)",
+      "format": "uri"
+    },
+    "technologies": {
+      "type": "array",
+      "description": "List of key technologies used",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "features": {
+      "type": "array",
+      "description": "Key features/capabilities of the agent",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "category": {
+      "type": "string",
+      "description": "Category of the agent",
+      "enum": ["Research & Analysis", "Recommendations", "Content Creation", "Customer Support", "Business Intelligence", "Recruitment", "Other"]
+    },
+    "businessImpact": {
+      "type": "object",
+      "description": "Business impact metrics",
+      "properties": {
+        "timeSaved": {
+          "type": "string",
+          "description": "Time saved by using the agent (e.g., '90% reduction')"
+        },
+        "keyMetric": {
+          "type": "string",
+          "description": "Primary business metric improved"
+        }
+      }
+    },
+    "whoShouldUse": {
+      "type": "array",
+      "description": "Target user personas",
+      "items": {
+        "type": "string"
+      }
+    },
+    "order": {
+      "type": "integer",
+      "description": "Display order in the README (lower numbers appear first)"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether to include this agent in the README",
+      "default": true
+    }
+  }
+}
+

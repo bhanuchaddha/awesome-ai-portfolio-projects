@@ -1,0 +1,37 @@
+{
+  "id": "agent-001",
+  "name": "Deep Knowledge Agent",
+  "emoji": "📚",
+  "description": "Performs iterative searches through knowledge base, breaking down complex queries into sub-questions for comprehensive answers.",
+  "longDescription": "This agent performs iterative searches through its knowledge base, breaking down complex queries into sub-questions, and synthesizing comprehensive answers. It's designed to explore topics deeply and thoroughly by following chains of reasoning.",
+  "folder": "1_deep_knowledge_agent",
+  "gifPath": "1_deep_knowledge_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://deep-knowledge-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.9+",
+    "Agno Framework",
+    "OpenAI",
+    "LanceDB",
+    "Streamlit"
+  ],
+  "features": [
+    "Iteratively searches knowledge base",
+    "Breaks down complex topics",
+    "Source attribution and citations",
+    "Deep research capabilities"
+  ],
+  "category": "Research & Analysis",
+  "businessImpact": {
+    "timeSaved": "Drastically reduces research time",
+    "keyMetric": "Improves accuracy and depth of information for decision-making"
+  },
+  "whoShouldUse": [
+    "Researchers",
+    "Analysts",
+    "Content Creators",
+    "Students & Academics"
+  ],
+  "order": 1,
+  "active": true
+}
+

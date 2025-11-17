@@ -1,0 +1,38 @@
+{
+  "id": "agent-007",
+  "name": "Employee Recruiter Agent",
+  "emoji": "👔",
+  "description": "Automated AI-powered recruitment system from resume screening to interview scheduling and email communications.",
+  "longDescription": "Uses 4 specialized agents: Screening Agent (PDF resume analysis, scoring), Scheduler Agent (interview appointments), Email Writer Agent (professional invitations), and Email Sender Agent. Streamlines the entire hiring pipeline.",
+  "folder": "7_employee_recruiter_agent",
+  "gifPath": "7_employee_recruiter_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://employee-recruiter-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.9+",
+    "Agno Framework",
+    "OpenRouter",
+    "PyPDF",
+    "Streamlit"
+  ],
+  "features": [
+    "PDF resume processing",
+    "AI-powered candidate scoring (0-10)",
+    "Automated interview scheduling",
+    "Professional email generation",
+    "Multi-agent recruitment pipeline"
+  ],
+  "category": "Recruitment",
+  "businessImpact": {
+    "timeSaved": "Automates screening and scheduling",
+    "keyMetric": "Reduces time-to-interview by 70%"
+  },
+  "whoShouldUse": [
+    "HR Teams",
+    "Recruiters",
+    "Hiring Managers",
+    "Talent Acquisition Teams"
+  ],
+  "order": 7,
+  "active": true
+}
+

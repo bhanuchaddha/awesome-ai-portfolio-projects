@@ -1,0 +1,41 @@
+{
+  "id": "agent-008",
+  "name": "Startup Idea Validator",
+  "emoji": "🚀",
+  "description": "Validates startup ideas through AI-powered multi-phase analysis with market research, competitive analysis, and strategic recommendations.",
+  "longDescription": "4 specialized AI agents in sequential pipeline: Idea Clarifier, Market Research (TAM/SAM/SOM with web search), Competitor Analysis (SWOT, positioning), and Report Generator (synthesis, recommendations). Provides comprehensive validation in minutes.",
+  "folder": "8_startup_idea_validator",
+  "gifPath": "8_startup_idea_validator/documentation/assets/demo.gif",
+  "deployedUrl": "https://startup-idea-validator.streamlit.app/",
+  "technologies": [
+    "Python 3.13+",
+    "Agno Framework",
+    "OpenRouter",
+    "Exa API",
+    "SQLite",
+    "Streamlit"
+  ],
+  "features": [
+    "4-phase validation pipeline",
+    "Real-time market research",
+    "TAM/SAM/SOM estimates",
+    "Competitive SWOT analysis",
+    "Strategic recommendations",
+    "Actionable next steps"
+  ],
+  "category": "Business Intelligence",
+  "businessImpact": {
+    "timeSaved": "95% time reduction (weeks to minutes)",
+    "keyMetric": "Data-driven validation before resource investment"
+  },
+  "whoShouldUse": [
+    "Entrepreneurs & Founders",
+    "Product Managers",
+    "Investors & VCs",
+    "Innovation Teams",
+    "Accelerators & Incubators"
+  ],
+  "order": 8,
+  "active": true
+}
+

@@ -1,0 +1,37 @@
+{
+  "id": "agent-002",
+  "name": "Airbnb Listing Finder Agent",
+  "emoji": "🏠",
+  "description": "AI agent that finds Airbnb listings based on natural language queries, searches and filters listings, and presents top 10 recommendations.",
+  "longDescription": "An AI agent that understands natural language queries, searches, analyzes, and filters Airbnb listings to present the top 10 recommendations with direct links. Automates the accommodation search process.",
+  "folder": "2_airbnb_listing_finder_agent",
+  "gifPath": "2_airbnb_listing_finder_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://airbnb-listing-finder-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.12+",
+    "Agno Framework",
+    "OpenRouter",
+    "Model Context Protocol (MCP)",
+    "Airbnb MCP Server",
+    "Streamlit"
+  ],
+  "features": [
+    "Natural language query understanding",
+    "Automated search and filtering",
+    "Top 10 curated recommendations",
+    "Direct booking links"
+  ],
+  "category": "Recommendations",
+  "businessImpact": {
+    "timeSaved": "90% reduction in search time",
+    "keyMetric": "Improves match quality by applying all user-defined criteria"
+  },
+  "whoShouldUse": [
+    "Travelers",
+    "Travel Agencies",
+    "Real Estate Analysts"
+  ],
+  "order": 2,
+  "active": true
+}
+

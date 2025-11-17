@@ -1,0 +1,39 @@
+{
+  "id": "agent-006",
+  "name": "Blog Post Generator Agent",
+  "emoji": "✍️",
+  "description": "Multi-agent content creation pipeline that transforms topics into complete content suites: research, blog post, LinkedIn post, and Twitter thread.",
+  "longDescription": "Uses 4 specialized agents working in sequence: Research Agent (Exa search), Blog Writer Agent (SEO-optimized content), LinkedIn Agent (professional posts), and Twitter Agent (viral threads). Creates publication-ready content with citations.",
+  "folder": "6_blog_post_generator_agent",
+  "gifPath": "6_blog_post_generator_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://blog-post-generator-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.9+",
+    "Agno Framework",
+    "OpenRouter",
+    "Exa API",
+    "Streamlit"
+  ],
+  "features": [
+    "Multi-agent pipeline (4 agents)",
+    "Comprehensive web research",
+    "SEO-optimized blog posts",
+    "Social media content generation",
+    "Citation and source tracking"
+  ],
+  "category": "Content Creation",
+  "businessImpact": {
+    "timeSaved": "Automated end-to-end content creation",
+    "keyMetric": "Complete content suite from single topic input"
+  },
+  "whoShouldUse": [
+    "Content Marketers",
+    "Bloggers",
+    "Social Media Managers",
+    "Marketing Teams",
+    "Agencies"
+  ],
+  "order": 6,
+  "active": true
+}
+

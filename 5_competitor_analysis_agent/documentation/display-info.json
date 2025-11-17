@@ -1,0 +1,41 @@
+{
+  "id": "agent-005",
+  "name": "Competitor Analysis Agent",
+  "emoji": "🔍",
+  "description": "Automates competitive analysis by identifying competitors, scraping websites, and generating comprehensive strategic reports with SWOT analysis.",
+  "longDescription": "Identifies key competitors through intelligent web searches, scrapes competitor websites to extract product details, pricing, and features, and generates comprehensive strategic reports including SWOT analysis and market positioning with actionable recommendations.",
+  "folder": "5_competitor_analysis_agent",
+  "gifPath": "5_competitor_analysis_agent/documentation/assets/demo.gif",
+  "deployedUrl": "https://competitor-analysis-agent.streamlit.app/",
+  "technologies": [
+    "Python 3.12+",
+    "Agno Framework",
+    "OpenRouter",
+    "MCP Tools (Firecrawl)",
+    "ReasoningTools",
+    "Streamlit"
+  ],
+  "features": [
+    "Intelligent competitor identification",
+    "Website scraping and analysis",
+    "SWOT analysis generation",
+    "Market positioning insights",
+    "Actionable recommendations"
+  ],
+  "category": "Business Intelligence",
+  "businessImpact": {
+    "timeSaved": "95% reduction in research time",
+    "keyMetric": "Real-time competitive reports in minutes vs weeks"
+  },
+  "whoShouldUse": [
+    "Strategic Planners",
+    "Market Researchers",
+    "Product Managers",
+    "Sales & Marketing Teams",
+    "Investment Analysts",
+    "Startups"
+  ],
+  "order": 5,
+  "active": true
+}
+
