@@ -47,15 +47,21 @@ def get_agent_db():
 
 
 def create_agent(
-    session_id: Optional[str] = None, file_path: Optional[str] = None
+    session_id: Optional[str] = None, 
+    file_path: Optional[str] = None,
+    model_id: Optional[str] = None
 ) -> Agent:
     """Create and return a configured DeepKnowledge agent."""
     agent_knowledge = initialize_knowledge_base(file_path=file_path)
     agent_db = get_agent_db()
+    
+    # Determine the model ID to use
+    final_model_id = model_id or os.getenv("OPENROUTER_MODEL_ID", "minimax/minimax-m2:free")
+    
     return Agent(
         name="DeepKnowledge",
         session_id=session_id,
-        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "minimax/minimax-m2:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
+        model=OpenRouter(id=final_model_id, api_key=os.getenv("OPENROUTER_API_KEY")),
         description=dedent("""\
         You are DeepKnowledge, an advanced reasoning agent designed to provide thorough,
         well-researched answers to any query by searching your knowledge base.
@@ -111,12 +117,12 @@ def create_agent(
     )
 
 def get_agent_response(
-    message: str, session_id: str, file_path: Optional[str] = None
+    message: str, session_id: str, file_path: Optional[str] = None, model_id: Optional[str] = None
 ) -> str:
     """Run agent and return response as string (for UI integration)."""
     if not file_path:
         return "Please upload a file to begin."
-    agent = create_agent(session_id=session_id, file_path=file_path)
+    agent = create_agent(session_id=session_id, file_path=file_path, model_id=model_id)
     run_output = agent.run(message)
     response = run_output.content
     return response if isinstance(response, str) else str(response)

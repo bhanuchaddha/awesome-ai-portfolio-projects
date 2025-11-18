@@ -59,7 +59,7 @@ def _handle_file_upload():
         else:
             try:
                 if file_type.startswith("image/"):
-                    st.image(file_path_str, use_column_width=True)
+                    st.image(file_path_str, use_container_width=True)
                 elif file_type == "application/pdf":
                     with open(file_path_str, "rb") as f:
                         base64_pdf = base64.b64encode(f.read()).decode("utf-8")

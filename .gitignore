@@ -75,3 +75,4 @@ mcp_config.json
 */.env
 local/
 */tmp/
+*/local/
