@@ -12,13 +12,16 @@ from agno.models.openrouter import OpenRouter
 from dotenv import load_dotenv
 import os
 
+from typing import Optional
+
 # Load environment variables from .env file
 load_dotenv()
 
-def _create_agent(mcp_tools):
+def _create_agent(mcp_tools, model_id: Optional[str] = None):
     """Helper function to create agent with shared configuration."""
+    final_model_id = model_id or os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free")
     return Agent(
-        model=OpenRouter(id=os.getenv("OPENROUTER_MODEL_ID", "meta-llama/llama-4-maverick:free"), api_key=os.getenv("OPENROUTER_API_KEY")),
+        model=OpenRouter(id=final_model_id, api_key=os.getenv("OPENROUTER_API_KEY")),
         tools=[ReasoningTools(add_instructions=True), mcp_tools],
         instructions=dedent("""
         ## General Instructions
@@ -43,7 +46,20 @@ def _create_agent(mcp_tools):
 async def run_agent(message: str) -> None:
     """Run agent and print response to stdout (for standalone CLI use)."""
     # Use .connect()/.close() style, not async context manager
-    mcp_tools = MCPTools(command="npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt")
+    
+    airbnb_api_key = os.getenv("AIRBNB_MCP_API_KEY")
+    airbnb_profile = os.getenv("AIRBNB_MCP_PROFILE")
+    
+    if not airbnb_api_key or not airbnb_profile:
+        print("Error: AIRBNB_MCP_API_KEY and AIRBNB_MCP_PROFILE environment variables are required.")
+        return
+
+    mcp_url = f"https://server.smithery.ai/@iclickfreedownloads/mcp-server-airbnb/mcp?api_key={airbnb_api_key}&profile={airbnb_profile}"
+
+    mcp_tools = MCPTools(
+        url=mcp_url,
+        transport="streamable-http"
+    )
     await mcp_tools.connect()
 
     try:
@@ -52,14 +68,26 @@ async def run_agent(message: str) -> None:
     finally:
         await mcp_tools.close()
 
-async def get_agent_response(message: str) -> str:
+async def get_agent_response(message: str, model_id: Optional[str] = None) -> str:
     """Run agent and return response as string (for UI integration)."""
     # Use .connect()/.close() style, not async context manager
-    mcp_tools = MCPTools(command="npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt")
+    
+    airbnb_api_key = os.getenv("AIRBNB_MCP_API_KEY")
+    airbnb_profile = os.getenv("AIRBNB_MCP_PROFILE")
+    
+    if not airbnb_api_key or not airbnb_profile:
+        return "Error: AIRBNB_MCP_API_KEY and AIRBNB_MCP_PROFILE environment variables are not set. Please configure them in the sidebar."
+
+    mcp_url = f"https://server.smithery.ai/@iclickfreedownloads/mcp-server-airbnb/mcp?api_key={airbnb_api_key}&profile={airbnb_profile}"
+    
+    mcp_tools = MCPTools(
+        url=mcp_url,
+        transport="streamable-http"
+    )
     await mcp_tools.connect()
 
     try:
-        agent = _create_agent(mcp_tools)
+        agent = _create_agent(mcp_tools, model_id=model_id)
 
         run_output = await agent.arun(message)
         response = run_output.content

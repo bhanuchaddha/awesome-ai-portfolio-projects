@@ -87,7 +87,12 @@ def _handle_file_upload():
 def _manage_api_keys(required_secrets: List[str]):
     """Manage API key inputs and session state."""
     st.header("API Keys")
-    keys_are_set = all(key in st.session_state for key in required_secrets)
+    
+    # Check if keys are set in session state OR environment variables
+    keys_are_set = all(
+        (key in st.session_state) or (os.getenv(key) is not None) 
+        for key in required_secrets
+    )
 
     if keys_are_set:
         st.success("API keys are set for this session.")
@@ -95,13 +100,12 @@ def _manage_api_keys(required_secrets: List[str]):
             for key in required_secrets:
                 if key in st.session_state:
                     del st.session_state[key]
-                if key in os.environ:
-                    del os.environ[key]
             st.rerun()
     else:
         st.write("Enter your API keys below to begin.")
         for secret_key in required_secrets:
-            if secret_key not in st.session_state:
+            # Only ask if not in session AND not in env
+            if secret_key not in st.session_state and not os.getenv(secret_key):
                 key_value = st.text_input(
                     f"Enter your {secret_key}",
                     type="password",
@@ -112,6 +116,7 @@ def _manage_api_keys(required_secrets: List[str]):
                     st.session_state[secret_key] = key_value
                     st.rerun()
 
+    # Ensure session keys are pushed to env for the current process
     for key in required_secrets:
         if key in st.session_state:
             os.environ[key] = st.session_state[key]
